@@ -8,11 +8,11 @@ USE ieee.numeric_std.all;
 ENTITY RAM_8Bits IS
 	GENERIC (	DATA_WITDH   : integer:= 8;
 					ADDR_WITDH   : integer:= 4);
-	PORT (	clk				: IN		STD_LOGIC;
-				wr_rdn			: IN		STD_LOGIC;
-				addr				: IN		STD_LOGIC_VECTOR (ADDR_WITDH-1 DOWNTO 0);
-				w_data			: IN		STD_LOGIC_VECTOR (DATA_WITDH-1 DOWNTO 0);
-				r_data			: OUT		STD_LOGIC_VECTOR (DATA_WITDH-1 DOWNTO 0));
+	PORT (	clk			: IN		STD_LOGIC;
+		wr_rdn			: IN		STD_LOGIC;
+		addr			: IN		STD_LOGIC_VECTOR (ADDR_WITDH-1 DOWNTO 0);
+		w_data			: IN		STD_LOGIC_VECTOR (DATA_WITDH-1 DOWNTO 0);
+		r_data			: OUT		STD_LOGIC_VECTOR (DATA_WITDH-1 DOWNTO 0));
 END ENTITY RAM_8Bits; 
 -------------------------------------------------------
 ARCHITECTURE rtl of RAM_8Bits IS 
