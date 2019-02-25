@@ -1,0 +1,50 @@
+-- Testbench
+-- Memoria RAM 8 bits
+-- Santiago, Brayan y Parrado(gay)
+-------------------------------------------------------
+LIBRARY IEEE;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+-------------------------------------------------------
+ENTITY RAM_8Bits_tb IS
+	GENERIC (	DATA_WITDH   : integer:= 8;
+					ADDR_WITDH   : integer:= 4);
+END ENTITY RAM_8Bits_tb; 
+-------------------------------------------------------
+ARCHITECTURE testbench OF RAM_8Bits_tb IS
+	SIGNAL	clk_tb		: 	STD_LOGIC;
+	SIGNAL	wr_rdn_tb	: 	STD_LOGIC;
+	SIGNAL	addr_tb		: 	STD_LOGIC_VECTOR (ADDR_WITDH-1 DOWNTO 0);
+	SIGNAL 	w_data_tb	: 	STD_LOGIC_VECTOR (DATA_WITDH-1 DOWNTO 0);
+	SIGNAL 	r_data_tb	: 	STD_LOGIC_VECTOR (DATA_WITDH-1 DOWNTO 0);
+-------------------------------------------------------
+BEGIN 
+-- Se llama al código RAM_8Bits en el testbench para cablear sus
+-- puertos de entrada y salida
+	DUT: ENTITY work.RAM_8Bits 
+	PORT MAP (	clk => clk_tb,
+					wr_rdn => wr_rdn_tb,
+					addr => addr_tb,
+					w_data => w_data_tb,
+					r_data => r_data_tb);
+-------------------------------------------------------
+--------------------- SEÑALES -------------------------
+signal_generation: PROCESS
+BEGIN
+		-- TEST VECTOR 1
+		wr_rdn_tb <= '1';
+		addr_tb <= "0000"; --10"; 
+		w_data_tb <= "11111111";
+		WAIT FOR 200 ns;
+		
+		-- TEST VECTOR 2
+		wr_rdn_tb <= '0';
+		addr_tb <= "0000"; --01";
+		w_data_tb <= "11110000";
+		WAIT FOR 200 ns;
+		
+		-- TEST VECTOR 3
+		wr_rdn_tb <= '1';
+		addr_tb <= "0101"; --10";
+		w_data_tb <= "00000000";
+		WAIT FOR 200 ns;
