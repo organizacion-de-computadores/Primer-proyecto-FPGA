@@ -34,3 +34,28 @@ BEGIN
 	-- Lectura
 	r_data <= ram(to_integer(unsigned(addr_reg)));
 END ARCHITECTURE;
+
+		-- TEST VECTOR 4
+		wr_rdn_tb <= '0';
+		addr_tb <= "0101"; --01";
+		w_data_tb <= "11111111";
+		WAIT FOR 200 ns;
+	END PROCESS;
+-------------------------------------------------------
+--------------------- RELOJ  -------------------------- 
+init:PROCESS
+	BEGIN
+		LOOP
+			clk_tb<='0';
+			WAIT FOR 50 ns;
+			
+			clk_tb<='1';
+			WAIT FOR 50 ns;
+	
+			IF (NOW>=100000 us) THEN 
+				WAIT;
+			END IF;
+		END LOOP;
+	END PROCESS init;
+	
+END ARCHITECTURE;
