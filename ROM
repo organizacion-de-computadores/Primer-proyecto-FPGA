@@ -8,20 +8,20 @@ use ieee.std_logic_unsigned.all;
 ------------------------------------------------------- 
 entity ROM_8Bits is
 	GENERIC (	DATA_WITDH   : integer:= 8;
-					ADDR_WITDH   : integer:=4);
+			ADDR_WITDH   : integer:=4);
     port (	clk  : in  std_logic;
-				en   : in  std_logic;
-				addr : in  std_logic_vector(ADDR_WITDH-1 downto 0);
-				data : out std_logic_vector(DATA_WITDH-1 downto 0));
+		en   : in  std_logic;
+		addr : in  std_logic_vector(ADDR_WITDH-1 downto 0);
+		data : out std_logic_vector(DATA_WITDH-1 downto 0));
 end ROM_8Bits;
 ------------------------------------------------------- 
 architecture behavioral of ROM_8Bits is
 --    type memoria_rom is array (0 to 2**ADDR_WITDH-1) of std_logic_vector(DATA_WITDH-1 downto 0);
-	type memoria_rom is array (0 to 9) of std_logic_vector(DATA_WITDH-1 downto 0);
+type memoria_rom is array (0 to 9) of std_logic_vector(DATA_WITDH-1 downto 0);
 constant ROM : memoria_rom := (	"00001001", "00001000", "00000111", "00000110", "00000101",
-											"00000100", "00000011", "00000010", "00000001", "00000000");
---											"00001010", "00001011", "00001100", "00001101", "00001110",
---											"00001111");
+				"00000100", "00000011", "00000010", "00000001", "00000000");
+--				"00001010", "00001011", "00001100", "00001101", "00001110",
+--				"00001111");
 begin
     read_process: process(clk)
 	 begin
