@@ -1,0 +1,70 @@
+-- Testbench memoria ROM:
+-- Santiago, Brayan y Parrado
+-------------------------------------------------------
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use ieee.std_logic_unsigned.all;
+------------------------------------------------------- 
+entity ROM_8Bits_tb is
+	GENERIC (	DATA_WITDH   : integer:= 8;
+					ADDR_WITDH   : integer:=4);
+end ROM_8Bits_tb;
+------------------------------------------------------- 
+ARCHITECTURE testbench OF ROM_8Bits_tb IS
+	SIGNAL	clk_tb		: 	STD_LOGIC;
+	SIGNAL 	en_tb			:	STD_LOGIC;
+	SIGNAL	addr_tb		: 	STD_LOGIC_VECTOR(ADDR_WITDH-1 DOWNTO 0);
+	
+	SIGNAL	data_tb 		: 	STD_LOGIC_VECTOR(DATA_WITDH-1 downto 0);
+-------------------------------------------------------
+BEGIN 
+-- Se llama al código ROM_8Bits en el testbench para cablear sus
+-- puertos de entrada y salida 
+	DUT: ENTITY work.ROM_8Bits 
+	PORT MAP (	clk => clk_tb,
+					en => en_tb,
+					addr => addr_tb,
+					data => data_tb);
+-------------------------------------------------------
+--------------------- SEÑALES -------------------------
+signal_generation: PROCESS
+BEGIN
+		-- TEST VECTOR 1
+		addr_tb <= "0000";
+		en_tb <= '0';
+		WAIT FOR 200 ns;
+		
+		-- TEST VECTOR 2
+		addr_tb <= "0100";
+		en_tb <= '1';
+		WAIT FOR 200 ns;
+		
+		-- TEST VECTOR 3
+		addr_tb <= "0110";
+		en_tb <= '0';
+		WAIT FOR 200 ns;
+	
+		-- TEST VECTOR 4
+		addr_tb <= "1000";
+    en_tb <= '1';
+		WAIT FOR 200 ns;
+	END PROCESS;
+-------------------------------------------------------
+--------------------- RELOJ  -------------------------- 
+init:PROCESS
+	BEGIN
+		LOOP
+			clk_tb<='0';
+			WAIT FOR 50 ns;
+			
+			clk_tb<='1';
+			WAIT FOR 50 ns;
+	
+			IF (NOW>=100000 us) THEN 
+				WAIT;
+			END IF;
+		END LOOP;
+	END PROCESS init;
+	
+END ARCHITECTURE;
