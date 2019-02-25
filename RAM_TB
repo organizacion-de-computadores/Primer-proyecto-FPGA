@@ -1,6 +1,6 @@
 -- Testbench
 -- Memoria RAM 8 bits
--- Santiago, Brayan y Parrado(gay)
+-- Santiago, Brayan y Parrado
 -------------------------------------------------------
 LIBRARY IEEE;
 USE ieee.std_logic_1164.all;
@@ -8,7 +8,7 @@ USE ieee.numeric_std.all;
 -------------------------------------------------------
 ENTITY RAM_8Bits_tb IS
 	GENERIC (	DATA_WITDH   : integer:= 8;
-					ADDR_WITDH   : integer:= 4);
+			ADDR_WITDH   : integer:= 4);
 END ENTITY RAM_8Bits_tb; 
 -------------------------------------------------------
 ARCHITECTURE testbench OF RAM_8Bits_tb IS
@@ -23,10 +23,10 @@ BEGIN
 -- puertos de entrada y salida
 	DUT: ENTITY work.RAM_8Bits 
 	PORT MAP (	clk => clk_tb,
-					wr_rdn => wr_rdn_tb,
-					addr => addr_tb,
-					w_data => w_data_tb,
-					r_data => r_data_tb);
+			wr_rdn => wr_rdn_tb,
+			addr => addr_tb,
+			w_data => w_data_tb,
+			r_data => r_data_tb);
 -------------------------------------------------------
 --------------------- SEÑALES -------------------------
 signal_generation: PROCESS
