@@ -1,0 +1,33 @@
+-- Unión testbench
+-- Santiago, Brayan y Parrado
+-------------------------------------------------------
+LIBRARY IEEE;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+-------------------------------------------------------
+ENTITY Union_tb IS
+	GENERIC (	DATA_WITDH   : integer:= 8;
+					  ADDR_WITDH   : integer:=4);
+END ENTITY Union_tb;
+-------------------------------------------------------
+ARCHITECTURE testbench OF Union_tb IS
+	SIGNAL clkU_tb		: STD_LOGIC:='0';
+	SIGNAL rstU_tb		: STD_LOGIC:='0';
+	SIGNAL botonU_tb	: STD_LOGIC:='0';
+	
+	SIGNAL ssegU_tb	: STD_LOGIC_VECTOR(DATA_WITDH-2 DOWNTO 0);
+-------------------------------------------------------
+BEGIN 
+	--CLOCK GENERATION:----------------------
+	clkU_tb  <= (not clkU_tb) after 10 ns; --50MHz clock generation
+	--RESET GENERATION:----------------------
+	rstU_tb  <=  '1' after 1 ns;
+	--BUTTOM GENERATION:----------------------
+	botonU_tb <= (not botonU_tb) after 120 ns;
+
+	DUT: ENTITY work.Union
+	PORT MAP (	clkU		=> clkU_tb,
+					rstU		=> rstU_tb,
+					botonU	=> botonU_tb,
+					ssegU		=> ssegU_tb);
+END ARCHITECTURE;	
