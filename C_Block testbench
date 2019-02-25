@@ -1,0 +1,38 @@
+-- C_Block testbench
+-------------------------------------------------------
+LIBRARY IEEE;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+-------------------------------------------------------
+ENTITY C_Block_tb IS
+	GENERIC (ADDR_WITDH   : integer:= 4);
+END ENTITY C_Block_tb; 
+-------------------------------------------------------
+ARCHITECTURE testbench OF C_Block_tb IS
+	SIGNAL boton_tb	: STD_LOGIC:='0';
+	SIGNAL reset_tb	: STD_LOGIC:='0';
+	SIGNAL clk_tb		: STD_LOGIC:='0';
+	
+	SIGNAL wr_RAM_tb	: STD_LOGIC;
+	SIGNAL en_ROM_tb  : STD_LOGIC;
+	SIGNAL addrROM_tb	: STD_LOGIC_VECTOR(ADDR_WITDH-1 DOWNTO 0);
+	SIGNAL addrRAM_tb	: STD_LOGIC_VECTOR(ADDR_WITDH-1 DOWNTO 0);
+-------------------------------------------------------
+BEGIN 
+	--CLOCK GENERATION:----------------------
+	clk_tb  <= (not clk_tb) after 10 ns; --50MHz clock generation
+	--RESET GENERATION:----------------------
+	reset_tb  <=  '1' after 1 ns;
+	--BUTTOM GENERATION:----------------------
+	boton_tb <= (not boton_tb) after 120 ns; --50MHz clock generation'1' after 100 ns,
+
+	DUT: ENTITY work.C_Block
+	PORT MAP (	boton		=> boton_tb,
+					reset		=> reset_tb,
+					clk		=> clk_tb,
+					wr_RAM	=> wr_RAM_tb,
+					en_ROM	=> en_ROM_tb,
+					addrROM	=> addrROM_tb,
+					addrRAM	=> addrRAM_tb);
+
+END ARCHITECTURE;	
