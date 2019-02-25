@@ -7,11 +7,11 @@ USE ieee.numeric_std.all;
 -------------------------------------------------------
 ENTITY Union IS
 	GENERIC (	DATA_WITDH   : integer:= 8;
-					ADDR_WITDH   : integer:=4);
-	PORT (	clkU		:	IN		STD_LOGIC;
-				rstU		:	IN		STD_LOGIC;
-				botonU	:	IN		STD_LOGIC;
-				ssegU		:	OUT	STD_LOGIC_VECTOR(DATA_WITDH-2 DOWNTO 0));
+			ADDR_WITDH   : integer:=4);
+	PORT (	clkU		:	IN	STD_LOGIC;
+		rstU		:	IN	STD_LOGIC;
+		botonU		:	IN	STD_LOGIC;
+		ssegU		:	OUT	STD_LOGIC_VECTOR(DATA_WITDH-2 DOWNTO 0));
 END ENTITY Union;
 -------------------------------------------------------
 ARCHITECTURE system OF Union IS
@@ -19,9 +19,9 @@ ARCHITECTURE system OF Union IS
 	SIGNAL addrROM_s	: STD_LOGIC_VECTOR(ADDR_WITDH-1 downto 0);
 	SIGNAL addrRAM_s	: STD_LOGIC_VECTOR(ADDR_WITDH-1 downto 0);
 	
-	SIGNAL w_data_s	: STD_LOGIC_VECTOR (DATA_WITDH-1 DOWNTO 0);
-	SIGNAL wr_RAM_s	: STD_LOGIC;
-	SIGNAL en_ROM_s	: STD_LOGIC;
+	SIGNAL w_data_s		: STD_LOGIC_VECTOR (DATA_WITDH-1 DOWNTO 0);
+	SIGNAL wr_RAM_s		: STD_LOGIC;
+	SIGNAL en_ROM_s		: STD_LOGIC;
 	SIGNAL bin_s		: STD_LOGIC_VECTOR (DATA_WITDH-1 DOWNTO 0);
 -------------------------------------------------------
 BEGIN
@@ -30,31 +30,31 @@ BEGIN
 -- ROM
 ROM : ENTITY work.ROM_8Bits
 	PORT MAP	(	clk  		=> clkU,
-					en   		=> en_ROM_s,
-					addr 		=> addrROM_s, --
-					data 		=> w_data_s); 
+				en   		=> en_ROM_s,
+				addr 		=> addrROM_s, --
+				data 		=> w_data_s); 
 -------------------------------------------------------
 -- Bloque de Control
 C_Block : ENTITY work.C_Block
 	PORT MAP ( 	boton		=> botonU,
-					reset		=> rstU,
-					clk		=> clkU, --
-					wr_RAM	=> wr_RAM_s,
-					en_ROM  	=> en_ROM_s,
-					addrROM	=> addrROM_s,
-					addrRAM	=> addrRAM_s);
+			reset		=> rstU,
+			clk		=> clkU, --
+			wr_RAM		=> wr_RAM_s,
+			en_ROM  	=> en_ROM_s,
+			addrROM		=> addrROM_s,
+			addrRAM		=> addrRAM_s);
 -------------------------------------------------------
 -- RAM
 RAM : ENTITY work.RAM_8Bits
 	PORT MAP ( 	clk		=> clkU,
-					wr_rdn	=> wr_RAM_s,
-					addr		=> addrRAM_s,
-					w_data	=> w_data_s,--
-					r_data	=> bin_s);
+			wr_rdn		=> wr_RAM_s,
+			addr		=> addrRAM_s,
+			w_data		=> w_data_s,--
+			r_data		=> bin_s);
 -------------------------------------------------------
 -- Binario a Siete Segmentos
 Bin2SSeg : ENTITY work.bin_to_sseg
 	PORT MAP (	bin		=> bin_s,--
-					sseg		=> ssegU);
+			sseg		=> ssegU);
 -------------------------------------------------------
 END ARCHITECTURE system;
