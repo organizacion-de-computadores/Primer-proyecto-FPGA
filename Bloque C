@@ -1,0 +1,446 @@
+-- Bloque de control C: Redirecciona los valores de la ROM 
+-- y se los envía a la RAM
+-------------------------------------------------------
+LIBRARY IEEE;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+-------------------------------------------------------
+ENTITY C_Block IS
+	GENERIC (ADDR_WITDH   : integer:= 4);
+	PORT (	boton		:	IN			STD_LOGIC;
+				reset		:	IN			STD_LOGIC;
+				clk		:	IN			STD_LOGIC;
+				wr_RAM	:  OUT	  	STD_LOGIC;
+				en_ROM   : 	OUT     	STD_LOGIC;
+				addrROM	:	OUT		STD_LOGIC_VECTOR(ADDR_WITDH-1 DOWNTO 0);
+				addrRAM	:	OUT		STD_LOGIC_VECTOR(ADDR_WITDH-1 DOWNTO 0));  
+END ENTITY C_Block; 
+
+Architecture FSM OF C_Block IS 
+TYPE states IS  (	State0,State1,State2,State3,State4,State5,State6,State7,State8,State9,
+						state10,state11,state12,state13,state14,state15,state16,state17,state18,state19,
+						state20,state21,state22,state23,state24,state25,state26,state27,state28,state29,
+						state30,state31,state32,state33,state34,state35,state36,state37,state38,state39);
+SIGNAL state: states;
+BEGIN 
+---------------sequential section:------------------------
+PROCESS (reset,clk, boton)
+BEGIN  
+     IF (reset= '0') THEN
+			state <= state0;
+			
+		
+		ELSIF (clk'EVENT and clk = '1') THEN
+		
+   CASE state IS
+	    WHEN state0=> 
+	      IF (boton='1') THEN
+			state<= State1;
+			ELSE 
+			state<=State0; 
+	      END IF; 
+	    WHEN state1=>
+			IF (boton='0') THEN
+			state<= State2;
+			ELSE 
+			state<=State1; 
+	      END IF;
+	  WHEN state2=> 
+			state <=State3;
+	  WHEN state3=> 
+			state <=State4; 
+	  WHEN state4=> 
+	      IF (boton='1') THEN
+			state<= State5;
+			ELSE 
+			state<=State4; 
+	      END IF; 
+	    WHEN state5=>
+			IF (boton='0') THEN
+			state<= State6;
+			ELSE 
+			state<=State5; 
+	      END IF;
+	  WHEN state6=> 
+			state <=State7;
+	  WHEN state7=> 
+			state <=State8; 
+	  WHEN state8=> 
+	      IF (boton='1') THEN
+			state<= State9;
+			ELSE 
+			state<=State8; 
+	      END IF; 
+	    WHEN state9=>
+			IF (boton='0') THEN
+			state<= State10;
+			ELSE 
+			state<=State9; 
+	      END IF;
+	  WHEN state10=> 
+			state <=State11;
+	  WHEN state11=> 
+			state <=State12; 
+	  WHEN state12=> 
+	      IF (boton='1') THEN
+			state<= State13;
+			ELSE 
+			state<=State12; 
+	      END IF; 
+	    WHEN state13=>
+			IF (boton='0') THEN
+			state<= State14;
+			ELSE 
+			state<=State13; 
+	      END IF;
+	  WHEN state14=> 
+			state <=State15;
+	  WHEN state15=> 
+			state <=State16; 
+	  WHEN state16=> 
+	      IF (boton='1') THEN
+			state<= State17;
+			ELSE 
+			state<=State16; 
+	      END IF; 
+	    WHEN state17=>
+			IF (boton='0') THEN
+			state<= State18;
+			ELSE 
+			state<=State17; 
+	      END IF;
+	  WHEN state18=> 
+			state <=State19;
+	  WHEN state19=> 
+			state <=State20; 
+	  WHEN state20=> 
+	      IF (boton='1') THEN
+			state<= State21;
+			ELSE 
+			state<=State20; 
+	      END IF; 
+	    WHEN state21=>
+			IF (boton='0') THEN
+			state<= State22;
+			ELSE 
+			state<=State21; 
+	      END IF;
+	  WHEN state22=> 
+			state <=State23;
+	  WHEN state23=> 
+			state <=State24; 
+	  WHEN state24=> 
+	      IF (boton='1') THEN
+			state<= State25;
+			ELSE 
+			state<=State24; 
+	      END IF; 
+	    WHEN state25=>
+			IF (boton='0') THEN
+			state<= State26;
+			ELSE 
+			state<=State25; 
+	      END IF;
+	  WHEN state26=> 
+			state <=State27;
+	  WHEN state27=> 
+			state <=State28; 
+	  WHEN state28=> 
+	      IF (boton='1') THEN
+			state<= State29;
+			ELSE 
+			state<=State28; 
+	      END IF; 
+	    WHEN state29=>
+			IF (boton='0') THEN
+			state<= State30;
+			ELSE 
+			state<=State29; 
+	      END IF;
+	  WHEN state30=> 
+			state <=State31;
+	  WHEN state31=> 
+			state <=State32; 
+	  WHEN state32=> 
+	      IF (boton='1') THEN
+			state<= State33;
+			ELSE 
+			state<=State32; 
+	      END IF; 
+	    WHEN state33=>
+			IF (boton='0') THEN
+			state<= State34;
+			ELSE 
+			state<=State33; 
+	      END IF;
+	  WHEN state34=> 
+			state <=State35;
+	  WHEN state35=> 
+			state <=State36; 
+	  WHEN state36=> 
+	      IF (boton='1') THEN
+			state<= State37;
+			ELSE 
+			state<=State36; 
+	      END IF; 
+	    WHEN state37=>
+			IF (boton='0') THEN
+			state<= State38;
+			ELSE 
+			state<=State37; 
+	      END IF;
+	  WHEN state38=> 
+			state <=State39;
+	  WHEN state39=> 
+			state <=State0;		
+END CASE ;
+END IF;
+END PROCESS;
+
+process(state)
+	
+		begin
+		case state is
+				when state0 =>
+				addrRAM<="1001";
+				addrROM<="0000";
+				en_ROM<='1';
+				wr_RAM<='0';
+            
+				WHEN state1 =>
+				addrRAM<="1001";
+				addrROM<="0000";
+				en_ROM<='1';
+				wr_RAM<='0';
+				
+				when state2 =>
+				addrRAM<="1001";
+				addrROM<="0000";
+				en_ROM<='0';
+				wr_RAM<='1';
+            
+				WHEN state3 =>
+				addrRAM<="1001";
+				addrROM<="0000";
+				en_ROM<='0';
+				wr_RAM<='1';
+				
+				when state4 =>
+				addrRAM<="1001";
+				addrROM<="0000";
+				en_ROM<='0';
+				wr_RAM<='1';
+				
+				WHEN state5 =>
+				addrRAM<="1000";
+				addrROM<="0001";
+				en_ROM<='1';
+				wr_RAM<='0';
+				
+				when state6 =>
+				addrRAM<="1000";
+				addrROM<="0001";
+				en_ROM<='1';
+				wr_RAM<='0';
+            
+				WHEN state7 =>
+				addrRAM<="1000";
+				addrROM<="0001";
+				en_ROM<='0';
+				wr_RAM<='1';
+				
+				when state8 =>
+				addrRAM<="1000";
+				addrROM<="0001";
+				en_ROM<='0';
+				wr_RAM<='1';
+				
+				WHEN state9 =>
+				addrRAM<="0111";
+				addrROM<="0010";
+				en_ROM<='1';
+				wr_RAM<='0';
+					
+				when state10 =>
+				addrRAM<="0111";
+				addrROM<="0010";
+				en_ROM<='1';
+				wr_RAM<='0';
+            
+				WHEN state11 =>
+				addrRAM<="0111";
+				addrROM<="0010";
+				en_ROM<='0';
+				wr_RAM<='1';
+				
+				when state12 =>
+				addrRAM<="0111";
+				addrROM<="0010";
+				en_ROM<='0';
+				wr_RAM<='1';
+				
+				WHEN state13 =>
+				addrRAM<="0110";
+				addrROM<="0011";
+				en_ROM<='1';
+				wr_RAM<='0';
+					
+				when state14 =>
+				addrRAM<="0110";
+				addrROM<="0011";
+				en_ROM<='1';
+				wr_RAM<='0';
+            
+				WHEN state15 =>
+				addrRAM<="0110";
+				addrROM<="0011";
+				en_ROM<='0';
+				wr_RAM<='1';
+				
+				when state16 =>
+				addrRAM<="0110";
+				addrROM<="0011";
+				en_ROM<='0';
+				wr_RAM<='1';
+				
+				WHEN state17 =>
+				addrRAM<="0101";
+				addrROM<="0100";
+				en_ROM<='1';
+				wr_RAM<='0';
+					
+				when state18 =>
+				addrRAM<="0101";
+				addrROM<="0100";
+				en_ROM<='1';
+				wr_RAM<='0';
+            
+				WHEN state19 =>
+				addrRAM<="0101";
+				addrROM<="0100";
+				en_ROM<='0';
+				wr_RAM<='1';
+				
+				when state20 =>
+				addrRAM<="0101";
+				addrROM<="0100";
+				en_ROM<='0';
+				wr_RAM<='1';
+				
+				WHEN state21 =>
+				addrRAM<="0100";
+				addrROM<="0101";
+				en_ROM<='1';
+				wr_RAM<='0';
+					
+				when state22 =>
+				addrRAM<="0100";
+				addrROM<="0101";
+				en_ROM<='1';
+				wr_RAM<='0';
+            
+				WHEN state23 =>
+				addrRAM<="0100";
+				addrROM<="0101";
+				en_ROM<='0';
+				wr_RAM<='1';
+				
+				when state24 =>
+				addrRAM<="0100";
+				addrROM<="0101";
+				en_ROM<='0';
+				wr_RAM<='1';
+				
+				WHEN state25 =>
+				addrRAM<="0011";
+				addrROM<="0110";
+				en_ROM<='1';
+				wr_RAM<='0';
+					
+				when state26 =>
+				addrRAM<="0011";
+				addrROM<="0110";
+				en_ROM<='1';
+				wr_RAM<='0';
+            
+				WHEN state27 =>
+				addrRAM<="0011";
+				addrROM<="0110";
+				en_ROM<='0';
+				wr_RAM<='1';
+				
+				when state28 =>
+				addrRAM<="0011";
+				addrROM<="0110";
+				en_ROM<='0';
+				wr_RAM<='1';
+				
+				WHEN state29 =>
+				addrRAM<="0010";
+				addrROM<="0111";
+				en_ROM<='1';
+				wr_RAM<='0';
+					
+				when state30 =>
+				addrRAM<="0010";
+				addrROM<="0111";
+				en_ROM<='1';
+				wr_RAM<='0';
+            
+				WHEN state31 =>
+				addrRAM<="0010";
+				addrROM<="0111";
+				en_ROM<='0';
+				wr_RAM<='1';
+				
+				when state32 =>
+				addrRAM<="0010";
+				addrROM<="0111";
+				en_ROM<='0';
+				wr_RAM<='1';
+				
+				WHEN state33 =>
+				addrRAM<="0001";
+				addrROM<="1000";
+				en_ROM<='1';
+				wr_RAM<='0';
+					
+				when state34 =>
+				addrRAM<="0001";
+				addrROM<="1000";
+				en_ROM<='1';
+				wr_RAM<='0';
+            
+				WHEN state35 =>
+				addrRAM<="0001";
+				addrROM<="1000";
+				en_ROM<='0';
+				wr_RAM<='1';
+				
+				when state36 =>
+				addrRAM<="0001";
+				addrROM<="1000";
+				en_ROM<='0';
+				wr_RAM<='1';
+				
+				WHEN state37 =>
+				addrRAM<="0000";
+				addrROM<="1001";
+				en_ROM<='1';
+				wr_RAM<='0';
+					
+				when state38 =>
+				addrRAM<="0000";
+				addrROM<="1001";
+				en_ROM<='1';
+				wr_RAM<='0';
+            
+				WHEN state39 =>
+				addrRAM<="0000";
+				addrROM<="1001";
+				en_ROM<='0';
+				wr_RAM<='1';
+
+END CASE;
+END PROCESS;
+END ARChitecture FSM;  
